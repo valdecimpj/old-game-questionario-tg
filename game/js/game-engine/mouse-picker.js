@@ -8,6 +8,8 @@ export default class MousePicker{
         this.pickerCanvas=canvaspicker
         this.pickergl=new GraphicEngine(this.pickerCanvas);
         this.objectList={};
+        this.editing=false;
+        this.edigingCallback=()=>{};
         canvas.onclick=(e)=>{
             let pos = this.getPosition(canvas);
             this.mousePick(e.pageX,e.pageY,pos);
@@ -40,7 +42,10 @@ export default class MousePicker{
             let obj=this.objectList[i];
             let id=obj.colorId;
             if(id.r==data[0]&&id.g==data[1]&&id.b==data[2])
-                obj.click();
+                if(!this.editing)
+                    obj.click();
+                else
+                    this.editingCallback(i,obj);
         }
     }
 

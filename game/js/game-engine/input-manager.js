@@ -1,13 +1,12 @@
 export default class InputManager{
-    constructor(editor){
-        this.editor=editor;
+    constructor(){
         this.keys={}
         this.buttons={}
         this.mousepos={}
         window.onkeydown=(e)=>{
             this.keys[e.code]=true;
         }
-        window.onkeydown=(e)=>{
+        window.onkeyup=(e)=>{
             this.keys[e.code]=undefined;
         }
         window.onmouseup=(e)=>{
@@ -16,17 +15,6 @@ export default class InputManager{
         window.onmousemove=(e)=>{
             this.mousepos.x=e.pageX;
             this.mousepos.y=e.pageY;
-        }
-        var canvas = this.editor.game.graphEngine.canvas;
-        canvas.onmouseup=(e,t)=>{
-            if(e.button==0){
-                var mouse=this.getNoPaddingNoBorderCanvasRelativeMousePosition(e,t);
-                this.editor.click(mouse);
-            }
-        }
-        canvas.onmousemove=(e,t)=>{
-            var mouse=this.getNoPaddingNoBorderCanvasRelativeMousePosition(e,t);
-            this.editor.moverCursor(mouse);
         }
     }
     getRelativeMousePosition(event, target) {

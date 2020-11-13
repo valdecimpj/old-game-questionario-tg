@@ -3,7 +3,7 @@ export default class Processor{
     constructor(graphEngine){
         this.map={}
         this.pause=false;
-        this.delayMs=1000;
+        this.delayMs=32;
         this.previousTime=0;
         this.graphEngine=graphEngine
         this.classLibrary=new ClassLibrary();

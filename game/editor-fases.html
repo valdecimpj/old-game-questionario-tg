@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#pickerCanvasWrapper{
+				visibility: hidden;
+				display:fixed;
+				width:0px;
+				height:0px;
+			}
+			#canvas3d{
+				border:1px solid black;
+                float:left;
+			}
+			.toolbar{
+				float:left;
+                margin-left:20px;
+                border: 1px solid black;
+                padding: 5px;
+				width:240px;
+				height:720px;
+				background-color: #bbb;
+			}
+			#divListaSelecao{
+				display:none;
+			}
+			#btnCancelarAdicionar{
+				float:bottom;
+			}
+			#lstAdicionarObjeto{
+				height:600px;
+				-webkit-user-select: none; /* Safari */        
+				-moz-user-select: none; /* Firefox */
+				-ms-user-select: none; /* IE10+/Edge */
+				user-select: none; /* Standard */
+			}
+			#lstObjetosCena{
+				height:280px;
+				-webkit-user-select: none; /* Safari */        
+				-moz-user-select: none; /* Firefox */
+				-ms-user-select: none; /* IE10+/Edge */
+				user-select: none; /* Standard */
+			}
+			#divListaObjetosCena{
+				height:355px;
+			}
+			#propsGameObject{
+				height:355px;
+				display: none;
+			}
+			.selectableList{
+				padding:0px;
+				list-style-type: none;
+				overflow-y:auto;
+				background-color: #ccc;
+				border:1px solid black;
+			}
+			.selectableList li{
+				cursor:pointer;
+				padding:5px;
+				background-color: #ddd;
+			}
+			.selectableList li button{
+				margin:10px;
+			}
+			li.selectedListItem{
+				background-color:orange;
+			}
+			.toolbar label{
+				display:block;
+				margin:5px;
+			}
+			#PlayControl{
+				width:1172px;
+				height: 30px;	
+				margin-left:0;
+				margin-bottom:20px;
+			}
+			body{
+				width:1190px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="PlayControl" class="toolbar">
+			<button id="btnPlay">Play</button>
+			<button id="btnReset" disabled>Reset</button>
+		</div>
+		<canvas id="canvas3d" width="640" height="480">Down here, salt is a way of life.</canvas>
+		<div id="pickerCanvasWrapper">
+			<canvas id="canvaspicker" width="640" height="480"></canvas>
+        </div>
+        <div id="divFerramentas" class="toolbar">
+            <h3>Ferramentas</h3>
+            <fieldset>
+                <legend>Objetos</legend>
+                <button id="btnAdicionar">Adicionar</button>
+                <input style="display:none" id="inpSelecionarObjeto"/>
+            </fieldset>
+		</div>
+		<div id="divListaSelecao" class="toolbar">
+			<h3>Adicionar</h3>
+			<ul id="lstAdicionarObjeto" class="selectableList">
+
+			</ul>
+			<button id="btnCancelarAdicionar">Cancelar</button>
+		</div>
+		<div id="divListaObjetosCena" class="toolbar">
+			<h3>Objetos </h3>
+			<ul id="lstObjetosCena" class="selectableList">
+				
+			</ul>
+		</div>
+		<div id="propsGameObject" class="toolbar">
+			<h3>Propriedades</h3>
+			<fieldset>
+				<legend>Posição</legend>
+				<label>X:<input type="text" id="propsX"/></label>
+				<label>Y:<input type="text" id="propsY"/></label>
+				<label>Z:<input type="text" id="propsZ"/></label>
+			</fieldset>
+			<fieldset>
+				<legend>Rotação</legend>
+				<label>X:<input type="text" id="propsRX"/></label>
+				<label>Y:<input type="text" id="propsRY"/></label>
+				<label>Z:<input type="text" id="propsRZ"/></label>
+			</fieldset>
+		</div>
+	</body>
+	<script type="text/javascript" src="./js/graphic-engine/twgl-full.min.js"></script>
+    <script type="text/javascript" src="./js/graphic-engine/gl-matrix.js"></script>
+    <script type="text/javascript" src="./js/utils.js"></script>
+	<script type="module" src="./js/editor-fases.js"></script>
+</html>

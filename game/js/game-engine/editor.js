@@ -1,4 +1,4 @@
-import HttpTools from '../library/http_tools';
+import HttpTools from '../library/http-tools';
 import GameObject from '../library/game-object.js';
 export default class Editor{
     constructor(processor){
