@@ -12,6 +12,26 @@ class UserDAO{
         }).catch((msg) => { return msg });
     }
 
+    disableUser(uid, admin){
+        return admin.auth().updateUser(uid,{
+            disabled:true
+        }).then(() => {
+            return {error:false}
+        }).catch(e=>{
+            return {error:true,message:e};
+        })
+    }
+
+    enableUser(uid, admin){
+        return admin.auth().updateUser(uid,{
+            disabled:false
+        }).then(() => {
+            return {error:false}
+        }).catch(e=>{
+            return {error:true,message:e};
+        })
+    }
+
     async updateUser(user,callback,admin){
         return admin.auth().updateUser(user.uid, {
             email: user.email,

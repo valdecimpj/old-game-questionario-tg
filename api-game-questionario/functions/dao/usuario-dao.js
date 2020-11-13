@@ -1,6 +1,5 @@
 const UserDAO = require("./user-dao");
 const crypto = require('crypto');
-const hmac = crypto.createHmac('sha256', 'a secret');
 
 class UsuarioDAO{
 
@@ -13,12 +12,21 @@ class UsuarioDAO{
     }
     
     createUsuarioCallback(usr, admin){
+        let hmac = crypto.createHmac('sha256', 'a secret');
         return admin.firestore().collection('usuario').add({
             idade: usr.idade,//data não está cadastrando
             nome: usr.nome,
             uid: usr.uid,
             senha: hmac.update(usr.senha).digest('hex')
         }).catch((msg) => { return msg })
+    }
+
+    enableUsuario(email,password,admin){
+
+    }
+
+    disableUsuario(password,admin){
+
     }
 
     getUsuarioByUID(uid,admin){
@@ -32,15 +40,28 @@ class UsuarioDAO{
         return this.userDAO.updateUser(user,this.updateUsuarioCallback,admin);
     }
 
-    updateUsuarioCallback(usuario,admin){
+    async updateUsuarioCallback(usuario,admin){
+        let hmac = crypto.createHmac('sha256', 'a secret');
+        let pw;
+        if(usuario.novasenha!==undefined)
+            pw = usuario.novasenha;
+        else
+            pw = usuario.senhaantiga
+        console.log(usuario.nome)
+        let hashpw = hmac.update(pw).digest('hex')
+        let response=[];
         if (usuario.nome!==undefined) {
-            return admin.firestore().collection('usuario').doc(usuario.docId).update({
+            console.log(pw,hashpw)
+            response[0] = await admin.firestore().collection('usuario').doc(usuario.docId).update({
                 nome: usuario.nome,
             });
         }
-        else{
-            return
+        if(usuario.novasenha!==undefined){
+            response[1] = await admin.firestore().collection('usuario').doc(usuario.docId).update({
+                senha: hashpw,
+            });
         }
+        return response;
     }
 }
 module.exports = UsuarioDAO;
